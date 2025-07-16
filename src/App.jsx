@@ -1,13 +1,23 @@
-import { useState } from 'react'
+import { BrowserRouter, Route , Routes } from "react-router-dom";
+import Body from "./Body.jsx";
+import Profile from "./Profile.jsx";
+import Login from "./Login.jsx";
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <h1 className="text-8xl text-center text-amber-600">Hello World</h1>
+    <BrowserRouter basename="/">
+      <Routes>
+        <Route path="/" element={<Body />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+
     </>
-  )
+  );
 }
 
-export default App
+export default App;
