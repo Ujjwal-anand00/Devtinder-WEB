@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { addUser } from "../utils/userSlice.js";
+import { addUser, removeUser } from "../utils/userSlice.js";
 import { BASE_URL } from "../utils/constant.js";
 import { useDispatch } from "react-redux";
 
@@ -14,7 +14,7 @@ const NavBar = () => {
   const handleLogout = async () => {
       try{
         const res = await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
-        dispatch(addUser({})); // Clear user data on logout
+        dispatch(removeUser({})); // Clear user data on logout
         return navigate("/login");
 
       }catch(err){
@@ -27,7 +27,7 @@ const NavBar = () => {
   return (
     <div className="navbar bg-base-300 shadow-sm">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">DevTinder ❤️‍🔥</a>
+        <Link to="/" className="btn btn-ghost text-xl">DevTinder ❤️‍🔥</Link>
       </div>
       <div className="flex gap-10">
         {/* <input
@@ -51,13 +51,13 @@ const NavBar = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a className="justify-between">Profile</a>
+                <Link to="/profile" className="justify-between">Profile</Link>
               </li>
               <li>
-                <a>Settings</a>
+                <Link to="/settings" className="justify-between">Settings</Link>
               </li>
               <li>
-                <a onClick={handleLogout}>Logout</a>
+                <Link  onClick={handleLogout}>Logout</Link>
               </li>
             </ul>
           </div>
