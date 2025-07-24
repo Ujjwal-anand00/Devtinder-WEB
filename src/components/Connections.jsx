@@ -21,35 +21,45 @@ const Connections = () => {
     fetchConnections();
   }, []);
   if (!connections) return;
-  if (connections.length == 0) return <h1>No Connection Found</h1>;
+  if (connections.length == 0)
+    return <h1 className="my-20 text-3xl font-extrabold text-center mb-10 text-gray-300">No Connection Found</h1>;
   return (
-    <div className="text-center justify-center my-20">
-      <h1 className="text-2xl font-extrabold">Connections</h1>
-      {connections.map((connection) => {
-        const { firstName, lastName, photoUrl, age, gender, about } =
-          connection;
-        return (
-            <div className="w-80% m-auto flex justify-center align-center">
-          <ul className="list bg-base-100 rounded-box shadow-md ">
-            <li className="list-row">
-              <div>
-                <img className="size-30 rounded-box" src={photoUrl} />
-              </div>
-              <div className="text-xl font-stretch-50% font-bold">
-                <div>{firstName + " " + lastName}</div>
-                {age && gender && (
-                  <div className="text-s uppercase font-semibold opacity-60">
-                    {age + " " + gender}
-                  </div>
-                )}
-              </div>
-              <p className="list-col-wrap text-xs">{about}</p>
-            </li>
-            <hr className=""/>
-          </ul>
-          </div>
-        );
-      })}
+    <div className="flex flex-col items-center my-20 px-4">
+      <h1 className="text-3xl font-extrabold text-center mb-10 text-gray-300">
+        Connections
+      </h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 w-full max-w-6xl">
+        {connections.map((connection) => {
+          const { _id, firstName, lastName, photoUrl, age, gender, about } =
+            connection;
+
+          return (
+            <div
+              key={_id}
+              className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center transition-transform duration-300 hover:scale-105"
+            >
+              <img
+                src={photoUrl}
+                alt={`${firstName} ${lastName}`}
+                className="w-32 h-32 object-cover rounded-full border-4 border-primary shadow-md mb-4"
+              />
+
+              <h2 className="text-xl font-semibold text-gray-800">
+                {firstName} {lastName}
+              </h2>
+
+              {age && gender && (
+                <p className="text-sm text-gray-500 uppercase font-medium mt-1">
+                  {age} • {gender}
+                </p>
+              )}
+
+              <p className="text-sm text-gray-600 mt-3 line-clamp-3">{about}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
