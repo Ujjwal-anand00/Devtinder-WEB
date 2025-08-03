@@ -33,8 +33,8 @@ const Requests = () => {
     fetchRequests();
   }, []);
   if (!requests) return;
-  if (requests.length == 0)
-    return <h1 className="my-20 text-3xl font-extrabold text-center text-gray-300">No Requests Found</h1>;
+  if (requests.length <= 0)
+    return <h1 className="my-30 text-5xl font-black text-center text-gray-300">No Requests Found</h1>;
   return (
     <div className="flex flex-col items-center my-20 px-4">
       <h1 className="text-3xl font-extrabold text-center mb-10 text-gray-300">
