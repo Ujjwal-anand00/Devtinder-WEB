@@ -1,4 +1,3 @@
-import React from "react";
 import UserCard from "./UserCard";
 import axios from "axios";
 import { BASE_URL } from "../utils/constant";
@@ -8,7 +7,7 @@ import { useState } from "react";
 
 const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user?.firstName);
-  const [lastName, setLastName] = useState(user?.lastName );
+  const [lastName, setLastName] = useState(user?.lastName);
   const [photoUrl, setPhotoUrl] = useState(user?.photoUrl);
   const [about, setAbout] = useState(user?.about);
   const [age, setAge] = useState(user?.age);
@@ -21,19 +20,21 @@ const EditProfile = ({ user }) => {
     try {
       const res = await axios.patch(
         BASE_URL + "/profile/edit",
-        { firstName, lastName, photoUrl, age, gender, skills , about },
+        { firstName, lastName, photoUrl, age, gender,skills, about },
         { withCredentials: true }
       );
       dispatch(addUser(res?.data?.data));
     } catch (error) {
-      console.error(setError(error.response?.data || "Profile update failed"));
+      const errorMessage =
+        error.res?.data?.message || "Profile update failed";
+      setError(errorMessage);
+      console.error(error); // Log the full error object for debugging
     }
   };
   return (
     <>
-      <div className="flex items-center min-h-screen bg-base-200">
-        <div className="my-15 mx-15  bg-base-200 flex items-start justify-center p-6">
-          <div className="bg-base-100 border border-base-300 rounded-box p-10 max-w-3xl w-full shadow-lg overflow-y-auto">
+      <div className="flex items-center gap-10 min-h-screen mx-15 bg-gradient-to-r from-slate-900 to-slate-700">
+          <div className="bg-gradient-to-r from-slate-500 to-slate-600 border border-base-300 w-180 h-150 my-20 rounded-box p-10 shadow-lg overflow-y-auto">
             <legend className="text-3xl font-bold text-center mb-8 text-neutral-content">
               Edit Profile
             </legend>
@@ -97,15 +98,15 @@ const EditProfile = ({ user }) => {
               </div>
 
               <div>
-              <label className="label">Skills</label>
-              <input
-                type="text"
-                className="input input-bordered w-full"
-                placeholder="Skills"
-                value={skills}
-                onChange={(e) => setSkills(e.target.value)}
-              />
-            </div>
+                <label className="label">Skills</label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full"
+                  placeholder="Skills"
+                  value={skills}
+                  onChange={(e) => setSkills(e.target.value)}
+                />
+              </div>
 
               <div className="md:col-span-2">
                 <label className="label">About</label>
@@ -124,9 +125,8 @@ const EditProfile = ({ user }) => {
               </div>
             </div>
           </div>
-        </div>
         <UserCard
-          user={{ firstName, lastName, photoUrl, age, gender, skills , about }}
+          user={{ firstName, lastName, photoUrl, age, gender,skills, about }}
         />
       </div>
     </>

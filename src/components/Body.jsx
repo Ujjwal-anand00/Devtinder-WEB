@@ -29,7 +29,7 @@ const Body = () => {
       fetchUser();
   },[]);
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-r from-slate-900 to-slate-700">
       <NavBar />
       <Outlet />
       <Footer/>

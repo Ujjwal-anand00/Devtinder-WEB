@@ -28,7 +28,7 @@ const NavBar = () => {
 
   const user = useSelector((store) => store.user);
   return (
-    <div className="navbar bg-base-100 fixed top-0 z-50 shadow-md px-6">
+    <div className="navbar bg-linear-to-r from-gray-800 via-blue-700 to-gray-900 fixed top-0 z-50 shadow-md px-6">
       <div className="flex-1">
         <Link to="/" className="btn btn-ghost text-2xl font-bold text-primary">
           DevTinder <span className="text-pink-500 ml-1">❤️‍🔥</span>
