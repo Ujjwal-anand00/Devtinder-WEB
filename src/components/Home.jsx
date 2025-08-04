@@ -14,7 +14,7 @@ const Home = () => {
         {/* Foreground Content */}
         <div className="relative z-10 flex gap-y-3 flex-col items-center justify-center">
           <h1 className="text-4xl md:text-6xl bg-gradient-to-r from-rose-300 to-rose-500 bg-clip-text text-transparent font-black drop-shadow-lg">
-            Welcome to GitGrove
+            Welcome to GitHookUp <img src="/icons.png" alt="GitHookUp Icon" className="inline-block w-20 h-20" />
           </h1>
           <p className="mt-4 text-lg md:text-2xl bg-gradient-to-r from-pink-200 to-pink-400 bg-clip-text text-transparent font-light drop-shadow-md">
             Your one-stop solution for finding the perfect developer match.
@@ -104,7 +104,7 @@ const Home = () => {
         <div className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand Section */}
           <div>
-            <h2 className="text-2xl font-bold text-rose-500">GitGrove 💖</h2>
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-fuchsia-500 to-indigo-600 bg-clip-text text-transparent">GitHookUp <img src="/icons.png" alt="GitHookUp Icon" className="inline-block w-10 h-10" /></h2>
             <p className="mt-2 text-sm text-gray-300">
               Helping developers find the perfect match — one line of code at a
               time.
@@ -168,7 +168,7 @@ const Home = () => {
 
         {/* Bottom */}
         <div className="border-t border-base-300 text-sm text-center py-4 text-gray-500">
-          © {new Date().getFullYear()} GitGrove. Built with ❤️ for developers.
+          © {new Date().getFullYear()} GitHookUp. Built with ❤️ for developers.
         </div>
       </footer>
     </>
