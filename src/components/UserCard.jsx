@@ -4,10 +4,23 @@ import { BASE_URL } from "../utils/constant";
 import { useDispatch } from "react-redux";
 import { removeUserFromFeed } from "../utils/feedSlice";
 
+const getSkillsArray = (rawSkills) => {
+  // Case 1: It's already a valid array
+  if (Array.isArray(rawSkills)) {
+    return rawSkills;
+  }
+  // Case 2: It's a string, so we split it into an array
+  if (typeof rawSkills === "string" && rawSkills.trim().length > 0) {
+    return rawSkills.split(",").map((skill) => skill.trim());
+  }
+  // Case 3: It's null, undefined, or something else. Return an empty array.
+  return [];
+};
+
 const UserCard = ({ user }) => {
-  const { _id, firstName, lastName, photoUrl, age, gender, skills, about } =
-    user;
-  // const safeSkills = skills ? skills.split(",").map(skill => skill.trim()) : [];
+  const { _id, firstName, lastName, photoUrl, age, gender, about } = user;
+
+  const skills = getSkillsArray(user.skills);
   const dispatch = useDispatch();
   const handleSendRequest = async (status, userId) => {
     try {
@@ -22,35 +35,37 @@ const UserCard = ({ user }) => {
     }
   };
   return (
-    <div className="card bg-base-100 flex-row w-180 h-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-base-300 rounded-xl overflow-hidden mx-auto my-10">
-      <figure className="w-80 ">
+    <div className="card w-full max-w-2xl mx-auto my-6 bg-gray-800 border border-gray-700 shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 rounded-2xl overflow-hidden flex flex-col md:flex-row">
+      {/* Image Section - Adjusted proportions */}
+      <figure className="md:w-2/5 w-full h-56 md:h-auto overflow-hidden">
         <img
           src={photoUrl}
           alt={`${firstName} ${lastName}`}
-          className="w-80 h-100 object-cover shadow-md"
+          className="w-70 h-70 object-cover object-center"
         />
       </figure>
 
-      <div className="card-body text-center">
-        <h2 className="text-xl font-semibold text-neutral-content mb-1">
+      {/* Content Section - Adjusted padding, gaps, and text size */}
+      <div className="card-body w-full md:w-3/5 text-center px-4 py-4 flex flex-col justify-center gap-y-2">
+        {/* Name - Smaller font size */}
+        <h2 className="text-lg md:text-xl font-bold text-white">
           {`${firstName} ${lastName}`}
         </h2>
 
-        {age && gender && (
-          <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
-            {`${age} yrs • ${gender}`}
-          </p>
-        )}
+        {/* Age & Gender */}
+        <div className="">
+          {age && gender && (
+            <p className="text-sm text-gray-400">{`${age} yrs • ${gender}`}</p>
+          )}
+        </div>
 
+        {/* Skills */}
         {skills.length > 0 && (
-          <div className="flex flex-wrap gap-2 justify-center mt-2 mb-2">
-            <span className="font-bold text-gray-600 dark:text-gray-300">
-              Skills:
-            </span>
-            {skills.map((skill, index) => (
+          <div className="flex flex-wrap justify-center items-center gap-2 py-1">
+            {skills.map((skill) => (
               <span
-                key={index}
-                className=" text-green-700 px-1 py-1 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm text-center me-1 mb-1 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
+                key={skill}
+                className="text-xs px-3 py-1 rounded-full bg-blue-500 text-white font-semibold shadow-md"
               >
                 {skill}
               </span>
@@ -58,19 +73,24 @@ const UserCard = ({ user }) => {
           </div>
         )}
 
-        <p className="text-sm text-neutral-content mb-4">{about}</p>
+        {/* About */}
+        <p className="text-sm text-gray-300 line-clamp-3 px-2">{about}</p>
 
-        <div className="card-actions justify-evenly mt-4">
+        {/* Buttons - Smaller size */}
+        <div className="flex justify-center gap-4 mt-3">
           <button
-            className="btn btn-outline btn-error hover:scale-105 transition-transform"
+            type="button"
+            className="btn bg-red-500 hover:bg-red-600 text-white text-xl shadow-lg transform hover:scale-110 transition-all duration-200"
             onClick={() => handleSendRequest("ignored", _id)}
           >
-            ❌ Ignore
+            Ignore❌
           </button>
-          <button className="btn btn-primary hover:scale-105 transition-transform"
-          onClick={() => handleSendRequest("interested" , _id)}
+          <button
+            type="button"
+            className="btn bg-green-500 hover:bg-green-600 text-white text-xl shadow-lg transform hover:scale-110 transition-all duration-200"
+            onClick={() => handleSendRequest("interested", _id)}
           >
-            💖 Interested
+            Interested💖
           </button>
         </div>
       </div>

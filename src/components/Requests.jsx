@@ -1,10 +1,11 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect , useState} from "react";
 import { BASE_URL } from "../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequests, removeRequest } from "../utils/requestsSlice";
 
 const Requests = () => {
+  const [error, setError] = useState(null);
   const requests = useSelector((store) => store.requests);
   const dispatch = useDispatch();
   const reviewRequest = async (status, _id) => {
@@ -26,15 +27,22 @@ const Requests = () => {
       });
       dispatch(addRequests(res?.data?.data));
     } catch (err) {
-      console.error("Fetch request error:", err.res?.data || err.message || err);
+      setError("Failed to review the request. Please try again.");
+      console.error("Review Request Error !!", err);
     }
   };
   useEffect(() => {
     fetchRequests();
   }, []);
-  if (!requests) return;
-  if (requests.length <= 0)
+  // 1. Handle the LOADING state first
+  if (!requests) {
+    return <h1 className="my-30 text-5xl font-black text-center text-gray-300">Loading...</h1>;
+  }
+
+  // 2. Handle the EMPTY state
+  if (requests.length === 0) {
     return <h1 className="my-30 text-5xl font-black text-center text-gray-300">No Requests Found</h1>;
+  }
   return (
     <div className="flex flex-col items-center my-20 px-4">
       <h1 className="text-3xl font-extrabold text-center mb-10 text-gray-300">
@@ -48,7 +56,7 @@ const Requests = () => {
 
           return (
             <div
-              key={_id}
+              key={request._id}
               className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center transition-transform duration-300 hover:scale-105"
             >
               <img
