@@ -62,25 +62,25 @@ const NavBar = () => {
 
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[100] p-2 shadow-lg bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-[100] p-2 shadow-lg bg-black rounded-box w-52"
             >
               <li>
                 <Link to="/profile">
-                  <span className="text-black sm:text-white"> Profile</span>
+                  <span className="text-gray-300 sm:text-white"> Profile</span>
                 </Link>
               </li>
               <li>
                 <Link to="/connections">
-                  <span className="text-black sm:text-white"> Connections</span>
+                  <span className="text-gray-300 sm:text-white"> Connections</span>
                 </Link>
               </li>
               <li>
                 <Link to="/requests">
-                  <span className="text-black sm:text-white"> Requests</span>
+                  <span className="text-gray-300 sm:text-white"> Requests</span>
                 </Link>
               </li>
               <li>
-                <button onClick={handleLogout} className="text-black sm:text-white">
+                <button onClick={handleLogout} className="text-gray-300 sm:text-white">
                   Logout
                 </button>
               </li>
