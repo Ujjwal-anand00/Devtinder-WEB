@@ -66,21 +66,21 @@ const NavBar = () => {
             >
               <li>
                 <Link to="/profile">
-                  <span className="text-white"> Profile</span>
+                  <span className="text-black sm:text-white"> Profile</span>
                 </Link>
               </li>
               <li>
                 <Link to="/connections">
-                  <span className="text-white"> Connections</span>
+                  <span className="text-black sm:text-white"> Connections</span>
                 </Link>
               </li>
               <li>
                 <Link to="/requests">
-                  <span className="text-white"> Requests</span>
+                  <span className="text-black sm:text-white"> Requests</span>
                 </Link>
               </li>
               <li>
-                <button onClick={handleLogout} className="text-white">
+                <button onClick={handleLogout} className="text-black sm:text-white">
                   Logout
                 </button>
               </li>
