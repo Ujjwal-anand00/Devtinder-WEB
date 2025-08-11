@@ -15,6 +15,7 @@ const EditProfile = ({ user }) => {
   const [skills, setSkills] = useState(user?.skills || "");
   const [gender, setGender] = useState(user?.gender);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const dispatch = useDispatch();
 
   const saveProfile = async () => {
@@ -25,6 +26,7 @@ const EditProfile = ({ user }) => {
         { withCredentials: true }
       );
       dispatch(addUser(res?.data?.data));
+      setSuccess("Profile updated successfully!");
     } catch (error) {
       const errorMessage = error.res?.data?.message || "Profile update failed";
       setError(errorMessage);
@@ -32,6 +34,7 @@ const EditProfile = ({ user }) => {
     }
   };
   return (
+    
     <div className="flex my-15 flex-col lg:flex-row items-center justify-center gap-8 min-h-screen p-4 sm:p-6 lg:p-8 bg-gradient-to-r from-slate-900 to-slate-700">
       <div className="w-full max-w-2xl bg-gradient-to-r from-slate-500 to-slate-600 border border-base-300 rounded-box p-6 md:p-8 shadow-lg overflow-y-auto">
         <legend className="text-2xl md:text-3xl font-bold text-center mb-8 text-neutral-content">
@@ -125,7 +128,7 @@ const EditProfile = ({ user }) => {
         </div>
       </div>
 
-      <div >
+      <div>
         <UserCard
           user={{ firstName, lastName, photoUrl, about, age, skills, gender }}
         />

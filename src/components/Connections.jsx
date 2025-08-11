@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
+import { Link } from "react-router-dom";
 
 const Connections = () => {
   const connections = useSelector((store) => store.connections);
@@ -56,6 +57,13 @@ const Connections = () => {
               )}
 
               <p className="text-sm text-gray-600 mt-3 line-clamp-3">{about}</p>
+              <div className="mt-4">
+                <Link to={"/chat/" + _id}>
+                  <button className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors">
+                    Chat💬
+                  </button>
+                </Link>
+              </div>
             </div>
           );
         })}
